@@ -7,13 +7,16 @@ PID::PID(float setPoint, float kp, float ki, float kd)
 float PID::Compute(float measuredValue)
 {
     float error = setPoint - measuredValue;
+
+    float de = error - previousError;
     float dt = (millis() - previousTime) / 1000.0f; // Convert milliseconds to seconds
-    previousTime = millis();
 
     float proportional = kp * error;
     integral = integral + (ki * error * dt);
-    float derivative = kd * ((error - previousError) / dt);
+    float derivative = kd * (de / dt);
+
     previousError = error;
+    previousTime = millis();
 
     return proportional + integral + derivative;
 }
