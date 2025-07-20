@@ -1,2 +1,5 @@
-.pio
+build
+.cache
+.clangd
+.clang-format
 .vscode
